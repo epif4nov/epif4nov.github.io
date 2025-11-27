@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Исторический проект - краткие содержания</title>
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2B48C;
+            --accent-color: #A0522D;
+            --light-color: #F5F5DC;
+            --dark-color: #3E2723;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .hero {
+            background: url('https://source.unsplash.com/random/1200x600/?history') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .search-bar {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .search-bar input {
+            width: 60%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            padding: 12px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .periods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .period-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .period-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .period-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .period-content {
+            padding: 1.5rem;
+        }
+        
+        .period-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .period-content p {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+        
+        .read-more {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .read-more:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .timeline-section {
+            background-color: white;
+            padding: 3rem 0;
+            margin: 3rem 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--secondary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--light-color);
+            border-radius: 6px;
+            box-shadow: var(--shadow);
+        }
+        
+        .timeline-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            margin: 1rem 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        
+        .social-icons {
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 21px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Исторический проект</div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#periods">Периоды</a></li>
+                        <li><a href="#timeline">Хронология</a></li>
+                        <li><a href="#about">О проекте</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Исследуйте историю через краткие содержания</h1>
+            <p>От древних цивилизаций до современности в одном месте</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="search-bar">
+            <input type="text" placeholder="Поиск по историческим периодам и работам...">
+            <button>Найти</button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active">Все периоды</button>
+            <button class="filter-btn">Древний мир</button>
+            <button class="filter-btn">Средневековье</button>
+            <button class="filter-btn">Новое время</button>
+            <button class="filter-btn">Новейшая история</button>
+            <button class="filter-btn">Источники</button>
+        </div>
+
+        <div class="periods-grid" id="periods">
+            <div class="period-card">
+                <div class="period-image" style="background-image: url('https://source.unsplash.com/random/300x200/?ancient')"></div>
+                <div class="period-content">
+                    <h3>Древний Египет</h3>
+                    <p>Цивилизация Древнего Египта существовала на протяжении более 3000 лет и оставила после себя величественные пирамиды, храмы и богатую культуру.</p>
+                    <a href="#" class="read-more">Читать далее</a>
+                </div>
+            </div>
+            
+            <div class="period-card">
+                <div class="period-image" style="background-image: url('https://source.unsplash.com/random/300x200/?rome')"></div>
+                <div class="period-content">
+                    <h3>Римская империя</h3>
+                    <p>От основания Рима до падения Западной Римской империи - история одной из величайших цивилизаций в истории человечества.</p>
+                    <a href="#" class="read-more">Читать далее</a>
+                </div>
+            </div>
+            
+            <div class="period-card">
+                <div class="period-image" style="background-image: url('https://source.unsplash.com/random/300x200/?middleages')"></div>
+                <div class="period-content">
+                    <h3>Средневековая Европа</h3>
+                    <p>Эпоха рыцарей, замков, крестовых походов и формирования современных европейских государств.</p>
+                    <a href="#" class="read-more">Читать далее</a>
+                </div>
+            </div>
+            
+            <div class="period-card">
+                <div class="period-image" style="background-image: url('https://source.unsplash.com/random/300x200/?renaissance')"></div>
+                <div class="period-content">
+                    <h3>Эпоха Возрождения</h3>
+                    <p>Период культурного и интеллектуального возрождения в Европе, приведший к значительным изменениям в искусстве, науке и философии.</p>
+                    <a href="#" class="read-more">Читать далее</a>
+                </div>
+            </div>
+            
+            <div class="period-card">
+                <div class="period-image" style="background-image: url('https://source.unsplash.com/random/300x200/?frenchrevolution')"></div>
+                <div class="period-content">
+                    <h3>Французская революция</h3>
+                    <p>Период радикальных социальных и политических преобразований во Франции, оказавший влияние на всю Европу.</p>
+                    <a href="#" class="read-more">Читать далее</a>
+                </div>
+            </div>
+            
+            <div class="period-card">
+                <div class="period-image" style="background-image: url('https://source.unsplash.com/random/300x200/?ww2')"></div>
+                <div class="period-content">
+                    <h3>Вторая мировая война</h3>
+                    <p>Крупнейший вооружённый конфликт в истории человечества, изменивший политическую карту мира и оказавший огромное влияние на дальнейшее развитие.</p>
+                    <a href="#" class="read-more">Читать далее</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline-section" id="timeline">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--primary-color);">Хронология исторических периодов</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Древний мир (до V века)</h3>
+                        <p>Формирование первых цивилизаций, развитие письменности, возникновение государств.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Средневековье (V-XV века)</h3>
+                        <p>Эпоха феодализма, распространение христианства, крестовые походы.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Новое время (XVI-XIX века)</h3>
+                        <p>Эпоха Великих географических открытий, Реформация, Просвещение, промышленная революция.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Новейшая история (XX-XXI века)</h3>
+                        <p>Мировые войны, научно-техническая революция, глобализация, цифровая эпоха.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="about">
+        <div class="container">
+            <div class="footer-content">
+                <p>Исторический проект - собрание кратких содержаний исторических периодов и работ</p>
+                <div class="footer-links">
+                    <a href="#">О проекте</a>
+                    <a href="#">Контакты</a>
+                    <a href="#">Политика конфиденциальности</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#">FB</a>
+                    <a href="#">TW</a>
+                    <a href="#">IG</a>
+                </div>
+                <p>&copy; 2023 Исторический проект. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Фильтрация карточек по категориям
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Убираем активный класс у всех кнопок
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Добавляем активный класс нажатой кнопке
+                this.classList.add('active');
+                
+                // Здесь должна быть логика фильтрации карточек
+                // В реальном проекте это будет работать с данными из базы
+                console.log('Фильтр: ' + this.textContent);
+            });
+        });
+        
+        // Поиск
+        document.querySelector('.search-bar button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-bar input').value;
+            if (searchTerm) {
+                // Здесь должна быть логика поиска
+                console.log('Поиск: ' + searchTerm);
+                alert('Реализация поиска будет добавлена в будущем');
+            }
+        });
+        
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 50,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
